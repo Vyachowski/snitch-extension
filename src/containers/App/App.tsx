@@ -1,9 +1,22 @@
-import React from 'react';
-import icon from '../../assets/img/icon-128.png';
+import React, { useEffect } from 'react';
 import { useThumbmark } from '@thumbmarkjs/react';
 
+import icon from '../../assets/img/icon-128.png';
+
+const initApp = (fingerprint: string) => {
+    const saveFingerprintToStorage = () => {
+      chrome.storage.local.set({ fingerprint: fingerprint })
+      localStorage.setItem('fingerprint', fingerprint)
+    }
+
+    const login = () => fetch('google.com')
+    const fetchSiteList = () => fetch('sitelit.com')
+}
+
 const App = () => {
-  const { thumbmark, isLoading } = useThumbmark();
+  const { thumbmark: fingerprint, isLoading } = useThumbmark();
+
+  useEffect(() => { fingerprint && initApp(fingerprint) }, [fingerprint])
 
   return (
     <>
@@ -16,7 +29,7 @@ const App = () => {
           <header className="App-header">
             <img src={icon} className="App-logo" alt="logo" />
             <p>
-              Edit <code>{thumbmark}</code> and save to .
+              Edit <code>{fingerprint}</code> and save to .
             </p>
             <a
               className="App-link"
