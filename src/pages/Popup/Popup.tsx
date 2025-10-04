@@ -7,7 +7,7 @@ const Popup = () => {
   const { thumbmark, visitorId, isLoading } = useThumbmark();
 
   return (
-    <ThumbmarkProvider>
+    <ThumbmarkProvider apiKey={process.env.REACT_APP_THUMBMARK_API_KEY}>
       {!isLoading && <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
